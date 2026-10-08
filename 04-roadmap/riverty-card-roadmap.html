@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Riverty Card Spotlight Roadmap · BU &amp; Credit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F3F6F4;
+  --surface:#FFFFFF;
+  --ink:#10281F;
+  --muted:#52665D;
+  --line:#D5DFD9;
+  --brand:#0E4D3A;
+  --brand-ink:#FFFFFF;
+  --mint:#BDEBD3;
+
+  --qw-bg:#D6F2E0; --qw-fg:#0B5A33;
+  --mp-bg:#DCE6FB; --mp-fg:#1D3E94;
+  --fi-bg:#FBEBC2; --fi-fg:#7A4C00;
+  --ts-bg:#F8D9D6; --ts-fg:#8A1F17;
+
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"Figtree","Segoe UI",system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0C1713; --surface:#14241D; --ink:#E7F1EC; --muted:#9BB0A6;
+    --line:#2A4238; --brand:#BDEBD3; --brand-ink:#0C1713; --mint:#1D4A39;
+    --qw-bg:#173D29; --qw-fg:#A6E8C1;
+    --mp-bg:#1C2B52; --mp-fg:#B5C9FF;
+    --fi-bg:#463511; --fi-fg:#F6D98B;
+    --ts-bg:#4A1F1B; --ts-fg:#F6B5AE;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0C1713; --surface:#14241D; --ink:#E7F1EC; --muted:#9BB0A6;
+  --line:#2A4238; --brand:#BDEBD3; --brand-ink:#0C1713; --mint:#1D4A39;
+  --qw-bg:#173D29; --qw-fg:#A6E8C1;
+  --mp-bg:#1C2B52; --mp-fg:#B5C9FF;
+  --fi-bg:#463511; --fi-fg:#F6D98B;
+  --ts-bg:#4A1F1B; --ts-fg:#F6B5AE;
+}
+
+*{box-sizing:border-box}
+html{scroll-padding-top:16px}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:var(--body);font-size:16px;line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1240px;margin:0 auto;padding:32px 24px 64px}
+
+/* Header */
+header.top{
+  display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end;
+  padding-bottom:24px;border-bottom:2px solid var(--brand);
+}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.mark{
+  width:36px;height:36px;border-radius:10px;background:var(--brand);color:var(--brand-ink);
+  display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:20px;
+}
+.brand span{font-weight:600;color:var(--muted);font-size:15px}
+h1{
+  font-family:var(--display);font-weight:700;font-size:clamp(30px,5vw,48px);
+  line-height:1.05;letter-spacing:-0.02em;margin:0;
+}
+.sub{margin:10px 0 0;color:var(--muted);max-width:60ch}
+.actions{display:flex;gap:8px;align-items:center}
+.btn{
+  font:inherit;font-weight:600;font-size:14px;color:var(--ink);background:var(--surface);
+  border:1px solid var(--line);border-radius:8px;padding:8px 14px;cursor:pointer;
+}
+.btn:hover{border-color:var(--brand)}
+:focus-visible{outline:3px solid #3C8DFF;outline-offset:2px}
+
+/* Context strip */
+.context{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:24px 0;
+  background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;
+}
+.context div{padding:16px 18px;border-right:1px solid var(--line)}
+.context div:last-child{border-right:0}
+.context dt{font-size:13px;color:var(--muted);font-weight:500;margin:0 0 4px}
+.context dd{margin:0;font-weight:600;font-size:15px}
+
+/* Filters */
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 20px}
+.filters .lbl{font-size:14px;color:var(--muted);margin-right:4px}
+.chip{
+  font:inherit;font-size:14px;font-weight:600;border-radius:999px;padding:6px 14px;cursor:pointer;
+  border:1.5px solid transparent;
+}
+.chip[data-q="all"]{background:var(--surface);border-color:var(--line);color:var(--ink)}
+.chip[data-q="Quick Win"]{background:var(--qw-bg);color:var(--qw-fg)}
+.chip[data-q="Major Project"]{background:var(--mp-bg);color:var(--mp-fg)}
+.chip[data-q="Fill-In"]{background:var(--fi-bg);color:var(--fi-fg)}
+.chip[data-q="Time Sinker"]{background:var(--ts-bg);color:var(--ts-fg)}
+.chip[aria-pressed="true"]{border-color:var(--ink);box-shadow:0 0 0 2px var(--surface) inset}
+.chip[aria-pressed="false"]{opacity:.7}
+
+/* Lanes */
+.lanes{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:20px;align-items:start}
+.lane{background:transparent}
+.lane-head{
+  padding:14px 16px;border-radius:12px 12px 0 0;
+  background:var(--brand);color:var(--brand-ink);
+}
+.lane.next .lane-head{background:color-mix(in srgb,var(--brand) 78%,var(--bg))}
+.lane.later .lane-head{background:color-mix(in srgb,var(--brand) 55%,var(--bg))}
+.lane-head h2{
+  font-family:var(--display);font-size:24px;line-height:1.1;margin:0;font-weight:700;letter-spacing:-0.01em;
+}
+.lane-head p{margin:2px 0 0;font-size:14px;opacity:.9}
+.lane-body{
+  display:flex;flex-direction:column;gap:12px;padding:12px;min-height:140px;
+  background:color-mix(in srgb,var(--mint) 35%,var(--bg));
+  border:1px solid var(--line);border-top:0;border-radius:0 0 12px 12px;
+}
+.lane.now .lane-body{border-color:var(--brand)}
+
+/* Cards */
+.card{
+  background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 14px 12px;
+  border-left-width:5px;
+}
+.card[data-q="Quick Win"]{border-left-color:var(--qw-fg)}
+.card[data-q="Major Project"]{border-left-color:var(--mp-fg)}
+.card[data-q="Fill-In"]{border-left-color:var(--fi-fg)}
+.card[data-q="Time Sinker"]{border-left-color:var(--ts-fg)}
+.card.hidden{display:none}
+.card h3{font-family:var(--display);font-size:18px;line-height:1.2;margin:8px 0 6px;font-weight:700}
+.card p{margin:0;font-size:15px;color:var(--ink)}
+.badge{
+  display:inline-block;font-size:13px;font-weight:600;padding:3px 10px;border-radius:999px;
+}
+.badge[data-q="Quick Win"]{background:var(--qw-bg);color:var(--qw-fg)}
+.badge[data-q="Major Project"]{background:var(--mp-bg);color:var(--mp-fg)}
+.badge[data-q="Fill-In"]{background:var(--fi-bg);color:var(--fi-fg)}
+.badge[data-q="Time Sinker"]{background:var(--ts-bg);color:var(--ts-fg)}
+.card-top{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.when{font-size:13px;color:var(--muted);font-weight:500}
+.meters{display:flex;gap:18px;margin-top:12px;font-size:13px;color:var(--muted)}
+.meter{display:flex;align-items:center;gap:6px}
+.dots{display:inline-flex;gap:3px}
+.dots i{width:9px;height:9px;border-radius:50%;background:var(--line);display:block}
+.dots i.on{background:var(--brand)}
+.card details{margin-top:10px;border-top:1px dashed var(--line);padding-top:8px}
+.card summary{cursor:pointer;font-size:14px;font-weight:600;color:var(--muted);list-style:none}
+.card summary::-webkit-details-marker{display:none}
+.card summary::before{content:"+ ";font-weight:700}
+.card details[open] summary::before{content:"\2212  "}
+.card details p{margin-top:6px;font-size:14px;color:var(--muted)}
+.empty{font-size:14px;color:var(--muted);padding:8px 4px}
+
+/* Cut list */
+.cut{margin-top:36px}
+.cut h2{font-family:var(--display);font-size:26px;margin:0 0 4px;letter-spacing:-0.01em}
+.cut > p{margin:0 0 14px;color:var(--muted)}
+.cut-list{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.cut-item{
+  background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;
+  border-left:5px solid var(--ts-fg);
+}
+.cut-item h3{font-family:var(--display);font-size:18px;margin:6px 0 6px;text-decoration:line-through;text-decoration-thickness:1.5px;text-decoration-color:var(--muted)}
+.cut-item p{margin:0 0 6px;font-size:15px}
+.cut-item .sub2{font-size:14px;color:var(--muted)}
+.cut-item .sub2 b{color:var(--ink)}
+
+/* Notes */
+.notes{
+  margin-top:36px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+  padding-top:24px;border-top:1px solid var(--line);
+}
+.notes h4{font-family:var(--display);font-size:16px;margin:0 0 6px}
+.notes p,.notes ul{margin:0;font-size:14px;color:var(--muted)}
+.notes ul{padding-left:18px}
+footer{margin-top:28px;font-size:13px;color:var(--muted)}
+
+@media (max-width:960px){
+  .lanes{grid-template-columns:1fr}
+  .context{grid-template-columns:1fr 1fr}
+  .context div:nth-child(2){border-right:0}
+  .context div:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .cut-list,.notes{grid-template-columns:1fr}
+  header.top{grid-template-columns:1fr}
+}
+@media (max-width:520px){
+  .wrap{padding:20px 14px 48px}
+  .context{grid-template-columns:1fr}
+  .context div{border-right:0;border-bottom:1px solid var(--line)}
+  .context div:last-child{border-bottom:0}
+}
+@media print{
+  .actions,.filters{display:none}
+  body{background:#fff}
+  .card details > *:not(summary){display:block}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div>
+      <div class="brand"><div class="mark" aria-hidden="true">R</div><span>Riverty BU &amp; Credit</span></div>
+      <h1>Card Spotlight roadmap</h1>
+      <p class="sub">Fix the moment of misery at the till so a heavy pay-later user reaches for the Riverty card five times a month.</p>
+    </div>
+    <div class="actions">
+      <button class="btn" id="expandAll" type="button">Expand all notes</button>
+      <button class="btn" id="theme" type="button" aria-label="Toggle light or dark theme">Theme</button>
+    </div>
+  </header>
+
+  <dl class="context">
+    <div><dt>Primary metric</dt><dd>Persona uses the card 5 times a month</dd></div>
+    <div><dt>Guardrail</dt><dd>Number of successful purchases</dd></div>
+    <div><dt>Moment of misery</dt><dd>The till: no way to decide later and pay from home</dd></div>
+    <div><dt>Team</dt><dd>1 PM, 1 BA, 5 developers, 1 QA, 1 Architect</dd></div>
+  </dl>
+
+  <div class="filters" role="group" aria-label="Filter cards by quadrant">
+    <span class="lbl">Show</span>
+    <button class="chip" data-q="all" aria-pressed="true" type="button">All</button>
+    <button class="chip" data-q="Quick Win" aria-pressed="false" type="button">Quick Win</button>
+    <button class="chip" data-q="Major Project" aria-pressed="false" type="button">Major Project</button>
+    <button class="chip" data-q="Fill-In" aria-pressed="false" type="button">Fill-In</button>
+    <button class="chip" data-q="Time Sinker" aria-pressed="false" type="button">Time Sinker</button>
+  </div>
+
+  <main class="lanes" id="lanes">
+    <section class="lane now" aria-labelledby="h-now">
+      <div class="lane-head"><h2 id="h-now">Now</h2><p>3-week sprint</p></div>
+      <div class="lane-body" data-lane="now"></div>
+    </section>
+    <section class="lane next" aria-labelledby="h-next">
+      <div class="lane-head"><h2 id="h-next">Next</h2><p>Following 1-2 sprints</p></div>
+      <div class="lane-body" data-lane="next"></div>
+    </section>
+    <section class="lane later" aria-labelledby="h-later">
+      <div class="lane-head"><h2 id="h-later">Later</h2><p>Backlog</p></div>
+      <div class="lane-body" data-lane="later"></div>
+    </section>
+  </main>
+
+  <section class="cut" aria-labelledby="h-cut">
+    <h2 id="h-cut">Cut list</h2>
+    <p>Not funded. Each item has a cheap substitute, so the need is covered without engineering time.</p>
+    <div class="cut-list" id="cutList"></div>
+  </section>
+
+  <section class="notes" aria-label="Roadmap notes">
+    <div>
+      <h4>Go / no-go</h4>
+      <p>If the spike shows pay-later-after-purchase is infeasible, Now needs a fallback such as choosing a plan at the point of payment. Score the fallback separately before committing Next.</p>
+    </div>
+    <div>
+      <h4>Guardrail</h4>
+      <p>Instrument the successful-purchase rate before launch, so any decline or UX regression in the till flow is visible straight away.</p>
+    </div>
+    <div>
+      <h4>Review before commitment</h4>
+      <ul>
+        <li>Effort scores are estimates, to be validated with the Architect.</li>
+        <li>Legal and Compliance to review post-purchase credit and the soft pre-check.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>Value and effort are scored 1 to 5. Value 5 means it directly moves the primary metric. Effort 1 means days, 5 means months or an external dependency.</footer>
+</div>
+
+<script>
+(function(){
+  var items = [
+    { lane:"now", name:"Feasibility spike: pay later at any card terminal", q:"Major Project", v:5, e:5,
+      when:"Sprint 1-2, time-boxed to 1 sprint, with the Architect",
+      why:"The only feature that attacks the till directly: she pays later on almost every online order and has no equivalent in a shop.",
+      note:"Check the authorisation flow, converting a card transaction into a plan after purchase, and scheme and issuer rules. Effort stays at 5 until the spike proves otherwise. This is a go/no-go for the bet." },
+    { lane:"now", name:"Instant Apple Pay and Google Pay provisioning (partner workstream)", q:"Major Project", v:5, e:3,
+      when:"Starts in parallel, because lead time is external",
+      why:"If the card can't sit in her wallet at activation she never taps at the till, so the primary metric cannot move.",
+      note:"Depends on issuer and processor token provisioning. Start the partner conversations now. Plan roughly 2 developers on the spike and 3 on provisioning." },
+
+    { lane:"next", name:"Total-cost summary before each plan", q:"Quick Win", v:3, e:2,
+      when:"Built inside the pay-later flow, not standalone",
+      why:"Shows the full monthly cost at the moment she commits, which protects successful purchases at the till.",
+      note:"Effort is 2 to 3 depending on whether the plan engine already exposes cost data. Only matters once the till flow exists." },
+    { lane:"next", name:"Soft eligibility pre-check", q:"Quick Win", v:3, e:2,
+      when:"Uses spare capacity while the spike runs",
+      why:"Removes credit-check anxiety before she applies, so she activates the card faster.",
+      note:"Reuse existing scoring where possible. Legal and Compliance should review before build." },
+
+    { lane:"later", name:"Selective cashback or 0% offers", q:"Time Sinker", v:3, e:4,
+      when:"First candidate once the till works",
+      why:"The only lever that gives her a reason to pick the card over Klarna, PayPal or her debit card, but it fixes price, not the till friction.",
+      note:"Needs merchant deals, funding and margin approval. Test with one or two partners. Moves up if the bet is proven." },
+    { lane:"later", name:"One repayment view, online and in-store", q:"Time Sinker", v:3, e:4,
+      when:"After in-store plans exist",
+      why:"A real differentiator for a multi-channel user, but it supports retention rather than card usage in the first release.",
+      note:"Unifying online and in-store ledgers is a data-integration job." },
+    { lane:"later", name:"Fixed, automatic monthly repayment", q:"Fill-In", v:2, e:2,
+      when:"Only if capacity remains",
+      why:"Hygiene: she already has this habit through Flex, so it is not a reason to tap the card.",
+      note:"Cheap, good for trust, no impact on card frequency." },
+    { lane:"later", name:"Self-set spending cap", q:"Fill-In", v:2, e:2,
+      when:"Only if capacity remains",
+      why:"She is a confident heavy user whose problem is the missing option at the till, not overspending.",
+      note:"Watch that a cap doesn't suppress card usage, since that would work against the primary metric." }
+  ];
+
+  var cuts = [
+    { name:"In-app returns with refund tracking", q:"Time Sinker", v:2, e:4,
+      why:"It matters after the purchase, not at the till, and merchant refund integration is expensive.",
+      sub:"Static \u201Chow to return\u201D link." },
+    { name:"Merchant dashboard with sales-lift reporting", q:"Time Sinker", v:1, e:4,
+      why:"A Sales preference with no effect on her metric.",
+      sub:"Monthly email or CSV if merchants ask." }
+  ];
+
+  function dots(n){
+    var s='<span class="dots" aria-hidden="true">';
+    for(var i=1;i<=5;i++) s+='<i class="'+(i<=n?'on':'')+'"></i>';
+    return s+'</span>';
+  }
+  function esc(t){return t.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+
+  function cardHTML(it){
+    return '<article class="card" data-q="'+it.q+'">'+
+      '<div class="card-top"><span class="badge" data-q="'+it.q+'">'+it.q+'</span><span class="when">'+esc(it.when)+'</span></div>'+
+      '<h3>'+esc(it.name)+'</h3>'+
+      '<p>'+esc(it.why)+'</p>'+
+      '<div class="meters">'+
+        '<span class="meter"><span>Value '+it.v+'/5</span>'+dots(it.v)+'</span>'+
+        '<span class="meter"><span>Effort '+it.e+'/5</span>'+dots(it.e)+'</span>'+
+      '</div>'+
+      '<details><summary>Delivery notes</summary><p>'+esc(it.note)+'</p></details>'+
+    '</article>';
+  }
+
+  document.querySelectorAll('.lane-body').forEach(function(el){
+    var lane = el.getAttribute('data-lane');
+    var html = items.filter(function(i){return i.lane===lane}).map(cardHTML).join('');
+    el.innerHTML = html + '<div class="empty" hidden>No cards match this filter.</div>';
+  });
+
+  document.getElementById('cutList').innerHTML = cuts.map(function(c){
+    return '<article class="cut-item">'+
+      '<span class="badge" data-q="'+c.q+'">'+c.q+'</span>'+
+      '<h3>'+esc(c.name)+'</h3>'+
+      '<p>'+esc(c.why)+'</p>'+
+      '<div class="sub2"><b>Instead:</b> '+esc(c.sub)+' &nbsp; Value '+c.v+'/5, Effort '+c.e+'/5</div>'+
+    '</article>';
+  }).join('');
+
+  /* Filtering */
+  var chips = document.querySelectorAll('.chip');
+  chips.forEach(function(chip){
+    chip.addEventListener('click', function(){
+      var q = chip.getAttribute('data-q');
+      chips.forEach(function(c){ c.setAttribute('aria-pressed', c===chip ? 'true':'false'); });
+      document.querySelectorAll('.lane-body').forEach(function(body){
+        var shown = 0;
+        body.querySelectorAll('.card').forEach(function(card){
+          var match = (q==='all' || card.getAttribute('data-q')===q);
+          card.classList.toggle('hidden', !match);
+          if(match) shown++;
+        });
+        body.querySelector('.empty').hidden = shown>0;
+      });
+      document.querySelectorAll('.cut-item').forEach(function(ci){
+        var b = ci.querySelector('.badge').getAttribute('data-q');
+        ci.style.display = (q==='all' || b===q) ? '' : 'none';
+      });
+    });
+  });
+
+  /* Expand all */
+  var expanded = false;
+  var expandBtn = document.getElementById('expandAll');
+  expandBtn.addEventListener('click', function(){
+    expanded = !expanded;
+    document.querySelectorAll('.card details').forEach(function(d){ d.open = expanded; });
+    expandBtn.textContent = expanded ? 'Collapse all notes' : 'Expand all notes';
+  });
+
+  /* Theme toggle */
+  var root = document.documentElement;
+  document.getElementById('theme').addEventListener('click', function(){
+    var isDark = root.getAttribute('data-theme')==='dark' ||
+      (!root.getAttribute('data-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    root.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  });
+})();
+</script>
+</body>
+</html>
